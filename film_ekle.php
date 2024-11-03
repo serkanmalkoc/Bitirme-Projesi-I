@@ -1,9 +1,15 @@
+<?php
+session_start(); 
+include 'header.php';
+?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film Ekle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://db.onlinewebfonts.com/c/629ed6829f706958b9bdf4f6300dfca0?family=Sharp+Grotesk+SmBold+20+Regular" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
          /* Genel sayfa düzeni */
@@ -18,79 +24,7 @@
             margin: 0 auto;
             padding: 0px;
         }
-        header {
-            background-color: #14171C;
-            color: white;
-            padding: 0px 0;
-            text-align: center;
-        }
-        header h1 {
-            color: #fff;
-            text-align: left;
-            padding-left: 20px; /* Sol taraftan biraz boşluk ekleyebilirsin */
-            font-family: 'Sharp Grotesk SmBold 20 Regular', sans-serif; /* Fontu kullan */
-            padding-right: 50px;
-        }
-        header nav ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            font-family: 'Sharp Grotesk SmBold 20 Regular', sans-serif; /* Fontu kullan */
-        }
-        header nav ul li {
-            display: inline;
-            margin-right: 15px;
-        }
-        header nav ul li a {
-            color: #556678;   
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s; /* Geçiş efekti */
-        }
-        header nav ul li a:hover {
-            color: #fff; /* Üzerine gelindiğinde beyaz renk */
-        }
-        /* Giriş Modalı */
-        .modal {
-            position: fixed;
-            z-index: 1;
-            left: 50;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            display: none;
-        }
-        /* İçerik kısmı */
-        .modal-content {
-            background-color: #1c1e22;
-            color: #f5f5f5;
-            margin: 10% auto;
-            padding: 20px;
-            border: none;
-            border-radius: 8px;
-            width: 350px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        /* Modal Kapatma Butonu */
-        .close {
-            color: #888;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover, .close:focus {
-            color: #bbb;
-            cursor: pointer;
-        }
-        /* Genel sayfa düzeni */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+
         nav ul {
             list-style: none;
             padding: 0;
@@ -176,37 +110,10 @@
             width: 100%;
             bottom: 0;
         }
+
     </style>
 </head>
 <body>
-<div class="container">
-        <header>
-        <div style="display: flex; align-items: center;">
-        <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;">
-        <h1><a href="index.php" style="color: white; text-decoration: none;">Sinema Arşivi</a></h1>
-            <nav>
-                <ul>
-                    <?php if (isset($_SESSION['username'])): ?>
-                    <!-- Kullanıcı giriş yaptıysa çıkış butonu göster -->
-                    <li><a href="cikis.php" class="button">ÇIKIŞ YAP</a></li>
-                    <?php else: ?>
-                    <li><a href="#" id="loginBtn" class="button">GİRİŞ YAP</a></li>
-                    <li><a href="#" id="registerBtn" class="button">KAYIT OL</a></li> 
-                    <?php endif; ?>
-                    <li><a href="filmler.php">FİLMLER</a></li>
-                    <li><a href="film_ekle.php">EKLE</a></li>
-                </ul>
-            </nav>
-
-                    <!-- Film Arama Formu -->
-        <form method="GET" action="film_ara.php" style="display: inline; float: right; margin-left: 20px;">
-            <input type="text" name="query" required style="padding: 5px;">
-            <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0; margin-left: -30px;">
-            <i class="fas fa-search" style="color: #556678; font-size: 20px;"></i> <!-- Arama simgesi -->
-            </button>
-        </form>
-        </header>
-        </div>
     <section class="form-section">
         <div class="container">
             <h2>Yeni Film Ekle</h2>

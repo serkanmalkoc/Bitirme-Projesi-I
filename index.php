@@ -29,11 +29,11 @@ $result = $conn->query($sql);
             padding: 0px;
         }
         header {
-            background: #14171C;
+            background-color: #14171C;
             color: #fff;
             padding: 0px 0;
             text-align: center;
-        }  
+        } 
         header h1 {
             color: #fff;
             text-align: left;
@@ -158,7 +158,7 @@ $result = $conn->query($sql);
             padding: 20px;
             border: none;
             border-radius: 10px;
-            width: 520px;
+            width: 540px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             text-align: center;
             flex-direction: row; /* Yatay hizala */
@@ -201,16 +201,15 @@ $result = $conn->query($sql);
             width: 100%;
             max-width: 300px;
         }
-        .hidden { display: none; }
-    </style>
+  </style>
 </head>
 <body>
     <div class="container">
         <header>
         <div style="display: flex; align-items: center;">
-        <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;">
+        <!-- <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;"> -->
         <h1><a href="index.php" style="color: white; text-decoration: none;">Sinema Arşivi</a></h1>
-            <nav id="navMenu">
+            <nav>
                 <ul>
                     <?php if (isset($_SESSION['username'])): ?>
                     <!-- Kullanıcı giriş yaptıysa çıkış butonu göster -->
@@ -267,7 +266,7 @@ $result = $conn->query($sql);
             <label for="password" style="margin-bottom: 5px;">Şifre:</label>
             <input type="password" name="password" required>
         </div>
-        <button type="submit" class="button">Giriş Yap</button>
+        <button class="submit"><span>Giriş Yap</span></button>
     </div>
 </form>
 

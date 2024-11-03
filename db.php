@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "150305"; // XAMPP varsayılan olarak root kullanıcısı için şifre koymaz
+$password = "123456";
 $dbname = "sinema";
 
 // Veritabanı bağlantısı

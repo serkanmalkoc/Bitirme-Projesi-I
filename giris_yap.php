@@ -1,11 +1,7 @@
 <?php
+include 'db.php';
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "150305"; // XAMPP'deki root kullanıcısı için şifre
-$dbname = "sinema";
 
-// Veritabanı bağlantısı
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Bağlantı hatası kontrolü
