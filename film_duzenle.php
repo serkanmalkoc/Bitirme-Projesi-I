@@ -16,15 +16,6 @@ if (!$result) {
 
 $film = $result->fetch_assoc();
 
-// Film türlerini almak için sorgu
-$sql_turler = "SELECT * FROM turler"; // 'turler' tablosu film türlerini içermeli
-$result_turler = $conn->query($sql_turler);
-
-// Türler alınamadıysa hata mesajı
-if (!$result_turler) {
-    echo "Tür bilgileri alınamadı: " . $conn->error;
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
