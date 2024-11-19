@@ -176,7 +176,7 @@ $result = $conn->query($sql);
 <div class="container">
         <header>
         <div style="display: flex; align-items: center;">
-        <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;">
+        <!-- <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;"> -->
         <h1><a href="index.php" style="color: white; text-decoration: none;">Sinema Arşivi</a></h1>
             <nav>
                 <ul>
@@ -201,7 +201,7 @@ $result = $conn->query($sql);
         </header>
         </div>
     <section class="container">
-        <h2>Popüler Filmler</h2>
+        <h2>Yeni Eklenen Filmler</h2>
         <div class="film-grid">
             <?php
             if ($result->num_rows > 0) {
