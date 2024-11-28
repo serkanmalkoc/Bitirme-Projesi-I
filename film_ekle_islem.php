@@ -1,6 +1,7 @@
 <?php
 session_start();
-include 'db.php'; // Veritabanı bağlantısı
+require_once 'db.php'; // Veritabanı bağlantısı ve oturum başlatma
+checkLogin(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $baslik = $_POST['baslik'];

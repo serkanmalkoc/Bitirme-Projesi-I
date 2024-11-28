@@ -3,8 +3,9 @@
 include 'db.php';
 session_start(); // Oturum başlatma
 
+$sort_order = isset($_GET['sort']) && $_GET['sort'] === 'desc' ? 'DESC' : 'ASC';
 // Veritabanından filmleri çekme işlemi
-$sql = "SELECT * FROM filmler ORDER BY eklenme_tarihi DESC";
+$sql = "SELECT * FROM filmler ORDER BY yil $sort_order";
 $result = $conn->query($sql);
 ?>
 
@@ -35,6 +36,10 @@ $result = $conn->query($sql);
             color: white;
             padding: 0px 0;
             text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
         header h1 {
             color: #fff;
@@ -170,6 +175,15 @@ $result = $conn->query($sql);
             padding: 5px; /* İç boşluk */
             width: 200px; /* Genişlik */
         }
+        .sort-form {
+    display: flex;
+    align-items: center;
+}
+
+.sort-form label {
+    margin-right: 10px;
+    color: #fff;
+}
             </style>
 </head>
 <body>
@@ -202,6 +216,13 @@ $result = $conn->query($sql);
         </div>
     <section class="container">
         <h2>Yeni Eklenen Filmler</h2>
+        <form method="GET" action="filmler.php" class="sort-form">
+        <label for="sort">Sırala:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="asc" <?php if ($sort_order === 'ASC') echo 'selected'; ?>>Artan</option>
+            <option value="desc" <?php if ($sort_order === 'DESC') echo 'selected'; ?>>Azalan</option>
+        </select>
+    </form>
         <div class="film-grid">
             <?php
             if ($result->num_rows > 0) {

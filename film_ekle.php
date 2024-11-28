@@ -135,7 +135,7 @@ include 'header.php';
 
                 <div class="form-group">
                     <label for="tur">Türler:</label>
-                    <input type="tur" name="tur" required>
+                    <input type="text" name="tur" required>
                 </div>
 
                 <div class="form-group">

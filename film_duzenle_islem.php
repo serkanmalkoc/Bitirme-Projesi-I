@@ -1,5 +1,6 @@
 <?php
-include 'db.php'; // Veritabanı bağlantısı
+require_once 'db.php'; // Veritabanı bağlantısı ve oturum başlatma
+checkLogin();          // Giriş kontrolü
 
 // Formdan gelen verileri alın
 $film_id = $_POST['id'];

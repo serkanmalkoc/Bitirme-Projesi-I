@@ -1,5 +1,6 @@
 <?php
-include 'db.php'; // Veritabanı bağlantısını ekleyin
+require_once 'db.php'; // Veritabanı bağlantısı ve oturum başlatma
+checkLogin();          // Giriş kontrolü
 
 // Düzenlenecek film id'sini alalım
 $film_id = $_GET['id'];
