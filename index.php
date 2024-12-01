@@ -1,10 +1,13 @@
 <?php 
-include 'db.php'; // Veritabanı bağlantısı
 session_start(); // Oturumu başlatıyoruz
+include 'db.php'; // Veritabanı bağlantısı
 
 // Yeni eklenen filmleri veritabanından çekelim
 $sql = "SELECT * FROM filmler ORDER BY eklenme_tarihi DESC LIMIT 5";
 $result = $conn->query($sql);
+if (!$result) {
+    die("Sorgu başarısız: " . $conn->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -152,30 +155,94 @@ $result = $conn->query($sql);
         /* İçerik kısmı */
         
         .modal-content {
+            position: relative; /* Modal içeriğini bağlamak için relative konumu kullanın */
             background-color: #1c1e22;
             color: #f5f5f5;
-            margin: 0% auto;
+            margin: 10% auto; /* Ekran ortasına yerleştirme */
             padding: 20px;
             border: none;
             border-radius: 10px;
             width: 540px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             text-align: center;
-            flex-direction: row; /* Yatay hizala */
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .modal-content h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #E5E7EB;
+        }
+        .modal-content label {
+            font-size: 14px;
+            color: #A1A1AA;
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #1F2937;
+            color: #E5E7EB;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s ease;
+            border: 1px solid #4B5563;
+        }
+        
+        .modal-content input:focus {
+            border-color: #3B82F6;
+        }
+
+        .modal-content button {
+            background-color: #3B82F6;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            color: white;
+        }
+
+        .modal-content button:hover {
+            background-color: #2563EB;
         }
         
         /* Modal Kapatma Butonu */
         .close {
+            position: absolute; /* Modal içeriğine bağlanması için absolute */
+            top: 10px; /* Modal içeriğin üstünden 10px */
+            right: 10px; /* Modal içeriğin sağından 10px */
             color: #888;
-            float: right;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease; /* Hover geçişi için */
         }
         
-        .close:hover, .close:focus {
-            color: #bbb;
-            cursor: pointer;
+        .close:hover {
+            color: #fff;
         }
+
+        /* Modal Açılırken Animasyon */
+        @keyframes fadeIn {
+            from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+        }
+
         input[type="text"] {
             border: 1px solid #556678; /* Kenar rengi */
             border-radius: 30px; /* Kenar yuvarlama */
@@ -201,6 +268,24 @@ $result = $conn->query($sql);
             width: 100%;
             max-width: 300px;
         }
+
+        .welcome-message {
+            text-align: center;
+            margin: 20px 0; /* Header ve filmler arasına boşluk */
+            font-size: 16px;
+            color: white; /* Yazı rengini beyaz yap */
+            font-family: 'Arial', sans-serif; /* Yazı tipini ayarla */
+        }
+
+        .welcome-message a {
+            color: #4CAF50; /* Linklerin rengi */
+            text-decoration: none;
+            font-weight: bold;
+        }
+            
+        .welcome-message a:hover {
+            color: #45a049; /* Üzerine gelince renk değişimi */
+        }
   </style>
 </head>
 <body>
@@ -215,14 +300,13 @@ $result = $conn->query($sql);
                     <!-- Kullanıcı giriş yaptıysa çıkış butonu göster -->
                     <li><a href="cikis.php" class="button">ÇIKIŞ YAP</a></li>
                     <?php else: ?>
-                    <li><a href="#" id="loginBtn" class="button">GİRİŞ YAP</a></li>
-                    <li><a href="#" id="registerBtn" class="button">KAYIT OL</a></li> 
+                        <li><a href="#" id="loginBtn">GİRİŞ YAP</a></li>
+                        <li><a href="#" id="registerBtn">KAYIT OL</a></li>
                     <?php endif; ?>
-                    <li><a href="filmler.php">FİLMLER</a></li>
-                    <li><a href="film_ekle.php">EKLE</a></li>
+                        <li><a href="filmler.php">FİLMLER</a></li>
+                        <li><a href="film_ekle.php">EKLE</a></li>
                 </ul>
             </nav>
-
                     <!-- Film Arama Formu -->
         <form method="GET" action="film_ara.php" style="display: inline; float: right; margin-left: 20px;">
             <input type="text" name="query" required style="padding: 5px;">
@@ -231,6 +315,9 @@ $result = $conn->query($sql);
             </button>
         </form>
         </header>
+        </div>
+        <div class="welcome-message">
+            <p>Hoş geldiniz, lütfen <a href="#" id="loginBtn">giriş yapınız</a> veya <a href="#" id="registerBtn">kayıt olunuz.</a></p>
         </div>
         <section>
             <h2>Yeni Eklenen Filmler</h2>

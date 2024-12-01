@@ -11,10 +11,4 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Bağlantı hatası: " . $conn->connect_error);
 }
-function checkLogin() {
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: giris_yap.php");
-        exit();
-    }
-}
 ?>
