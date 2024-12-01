@@ -1,7 +1,10 @@
 <?php
-// Veritabanı bağlantısı
-include 'db.php';
 session_start(); // Oturum başlatma
+include 'db.php'; // Veritabanı bağlantısı
+// Veritabanından toplam film sayısını çekme
+$sql_total_films = "SELECT COUNT(*) AS total FROM filmler";
+$result_total_films = $conn->query($sql_total_films);
+$total_films = $result_total_films->fetch_assoc()['total'];
 
 $sort_order = isset($_GET['sort']) && $_GET['sort'] === 'desc' ? 'DESC' : 'ASC';
 // Veritabanından filmleri çekme işlemi
@@ -19,7 +22,9 @@ $result = $conn->query($sql);
     <link href="https://db.onlinewebfonts.com/c/629ed6829f706958b9bdf4f6300dfca0?family=Sharp+Grotesk+SmBold+20+Regular" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Genel sayfa düzeni */
+* {
+    box-sizing: border-box;
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #14171C;
@@ -28,18 +33,19 @@ $result = $conn->query($sql);
         }
         .container {
             max-width: 1200px;
-            margin: auto;
-            padding: 0px;
+            margin: 0 auto;
+            padding: 0px ;
         }
         header {
-            background-color: #14171C;
-            color: white;
-            padding: 0px 0;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            background-color: rgb(20, 23, 28);
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-bottom: 20px;
         }
         header h1 {
             color: #fff;
@@ -184,6 +190,18 @@ $result = $conn->query($sql);
     margin-right: 10px;
     color: #fff;
 }
+.film-count {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #14171C;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
             </style>
 </head>
 <body>
@@ -223,6 +241,9 @@ $result = $conn->query($sql);
             <option value="desc" <?php if ($sort_order === 'DESC') echo 'selected'; ?>>Azalan</option>
         </select>
     </form>
+    <div class="film-count">
+    Toplam Filmler: <?php echo $total_films; ?>
+</div>
         <div class="film-grid">
             <?php
             if ($result->num_rows > 0) {

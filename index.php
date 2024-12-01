@@ -19,7 +19,9 @@ if (!$result) {
     <link href="https://db.onlinewebfonts.com/c/629ed6829f706958b9bdf4f6300dfca0?family=Sharp+Grotesk+SmBold+20+Regular" rel="stylesheet">
     <link rel="stylesheet" href="style.css"> <!-- Style dosyanız -->
     <style>
-        /* Genel stil ayarları */
+* {
+    box-sizing: border-box;
+}
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -28,14 +30,18 @@ if (!$result) {
         }
         .container {
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             padding: 0px;
         }
         header {
             background-color: #14171C;
-            color: #fff;
-            padding: 0px 0;
+            color: white;
+            padding: 10px 20px;
             text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         } 
         header h1 {
             color: #fff;
