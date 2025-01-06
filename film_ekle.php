@@ -1,6 +1,31 @@
 <?php
 session_start(); 
-include 'header.php';
+
+// Eğer kullanıcı giriş yapmamışsa, mesaj göster ve index.php'ye yönlendir
+if (!isset($_SESSION['username'])) {
+    // Geri sayım süresi (2 saniye)
+    $countdown = 2;
+    header("refresh:$countdown;url=index.php"); // 2 saniye sonra yönlendirecek
+    echo "<h3>Lütfen film eklemek için giriş yapınız.</h3>";
+    echo "<p>Ana sayfaya yönlendiriliyor: <span id='countdown'>$countdown</span> saniye kaldı...</p>";
+
+    // Geri sayımın gerçekleşmesi için JavaScript
+    echo "
+    <script>
+        var countdownElement = document.getElementById('countdown');
+        var countdownValue = $countdown;
+
+        // Geri sayım her saniye azalacak
+        setInterval(function() {
+            if (countdownValue > 0) {
+                countdownValue--;
+                countdownElement.innerHTML = countdownValue;
+            }
+        }, 1000);
+    </script>";
+
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -24,6 +49,48 @@ include 'header.php';
             margin: 0 auto;
             padding: 0px;
         }
+        header {
+    background-color: #14171C;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #fff;
+    text-align: left;
+    padding-left: 20px;
+    font-family: 'Sharp Grotesk SmBold 20 Regular', sans-serif;
+    padding-right: 50px;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    font-family: 'Sharp Grotesk SmBold 20 Regular', sans-serif;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+header nav ul li a {
+    color: #556678;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #fff;
+}
+
 
         nav ul {
             list-style: none;
@@ -110,10 +177,137 @@ include 'header.php';
             width: 100%;
             bottom: 0;
         }
+/* Giriş Modalı */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
 
+.modal-content {
+    position: relative;
+    background-color: #1c1e22;
+    color: #f5f5f5;
+    margin: 10% auto;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #E5E7EB;
+}
+
+.modal-content label {
+    font-size: 14px;
+    color: #A1A1AA;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #2c3e50;
+    color: #E5E7EB;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s ease;
+    border: 1px solid #4B5563;
+}
+
+.modal-content input:focus {
+    border-color: #3B82F6;
+}
+
+.modal-content button {
+    background-color: #3498db;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.modal-content button:hover {
+    background-color: #2980b9;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ccc;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
     </style>
 </head>
 <body>
+<div class="container">
+        <header>
+        <div style="display: flex; align-items: center;">
+        <!-- <img src="logo/logo0.png" alt="Sinema Logo" style="width: 50px; height: auto; margin-right: 0px;"> -->
+        <h1><a href="index.php" style="color: white; text-decoration: none;">Beyazperde</a></h1>
+            <nav>
+                <ul>
+                    <?php if (isset($_SESSION['username'])): ?>
+                    <!-- Kullanıcı giriş yaptıysa çıkış butonu göster -->
+                    <li><a href="cikis.php" class="button">ÇIKIŞ YAP</a></li>
+                    <?php else: ?>
+                        <li><a href="#" id="loginBtn">GİRİŞ YAP</a></li>
+                        <li><a href="#" id="registerBtn">KAYIT OL</a></li>
+                    <?php endif; ?>
+                        <li><a href="filmler.php">FİLMLER</a></li>
+                        <li><a href="film_ekle.php">EKLE</a></li>
+                </ul>
+            </nav>
+                    <!-- Film Arama Formu -->
+        <form method="GET" action="film_ara.php" style="display: inline; float: right; margin-left: 20px;">
+            <input type="text" name="query" required style="padding: 5px;">
+            <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0; margin-left: -30px;">
+            <i class="fas fa-search" style="color: #556678; font-size: 20px;"></i> <!-- Arama simgesi -->
+            </button>
+        </form>
+        </header>
+        </div>
     <section class="form-section">
         <div class="container">
             <h2>Yeni Film Ekle</h2>
@@ -186,7 +380,48 @@ include 'header.php';
         </div>
     </div>
 
+<!-- Giriş Modalı -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form method="POST" action="giris_yap.php">
+            <label for="username">Kullanıcı Adı:</label>
+            <input type="text" name="username" required>
+            <label for="password">Şifre:</label>
+            <input type="password" name="password" required>
+            <button type="submit">Giriş Yap</button>
+        </form>
+    </div>
+</div>
+
+
+        </div>
+    </div>
+
+    <!-- Kayıt Ol Modalı -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Kayıt Ol</h3>
+            <form method="POST" action="kayit_ol.php">
+                <label for="new_username">Kullanıcı Adı:</label>
+                <input type="text" name="username" required>
+                <br>
+                <label for="new_password">Şifre:</label>
+                <input type="password" name="password" required>
+                <br>
+                <button type="submit" class="button">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // PHP'den kullanıcı adını al
+        <?php if (isset($_SESSION['username'])): ?>
+            var username = "<?php echo $_SESSION['username']; ?>";
+            document.getElementById("welcomeMessage").innerHTML = "Sefalar getirdiniz, " + username + ", iyi eğlenceler!";
+        <?php endif; ?>
+
         // Modal açma ve kapama işlemleri
         var loginModal = document.getElementById("loginModal");
         var registerModal = document.getElementById("registerModal");

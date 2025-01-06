@@ -26,103 +26,102 @@ $film = $result->fetch_assoc();
     <title>Film Düzenle</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+       body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    color: #444;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+}
 
-        h1 {
-            font-size: 2rem;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+h1 {
+    font-size: 2.4rem;
+    color: #222;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    display: block;
+    color: #333;
+}
 
-        input[type="text"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
+input[type="text"], textarea, select, input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
 
-        input[type="text"]:focus,
-        select:focus {
-            border-color: #007bff;
-            outline: none;
-        }
+input[type="text"]:focus, select:focus, textarea:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 8px rgba(0, 115, 230, 0.25);
+    outline: none;
+}
 
-        textarea {
-            resize: vertical;
-        }
+textarea {
+    resize: vertical;
+}
 
-        input[type="file"] {
-            margin-bottom: 20px;
-        }
+button {
+    width: 100%;
+    padding: 12px;
+    background: #0073e6;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-        }
+button:hover {
+    background-color: #005bb5;
+    transform: translateY(-3px);
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #0073e6;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+.back-link:hover {
+    color: #004a99;
+}
 
-        .back-link:hover {
-            color: #0056b3;
-        }
-
-        @media screen and (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            button {
-                font-size: 1rem;
-            }
-        }
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    button {
+        font-size: 1rem;
+    }
+}
     </style>
 </head>
 <body>
