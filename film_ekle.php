@@ -1,31 +1,8 @@
 <?php
 session_start(); 
 
-// Eğer kullanıcı giriş yapmamışsa, mesaj göster ve index.php'ye yönlendir
-if (!isset($_SESSION['username'])) {
-    // Geri sayım süresi (2 saniye)
-    $countdown = 2;
-    header("refresh:$countdown;url=index.php"); // 2 saniye sonra yönlendirecek
-    echo "<h3>Lütfen film eklemek için giriş yapınız.</h3>";
-    echo "<p>Ana sayfaya yönlendiriliyor: <span id='countdown'>$countdown</span> saniye kaldı...</p>";
 
-    // Geri sayımın gerçekleşmesi için JavaScript
-    echo "
-    <script>
-        var countdownElement = document.getElementById('countdown');
-        var countdownValue = $countdown;
 
-        // Geri sayım her saniye azalacak
-        setInterval(function() {
-            if (countdownValue > 0) {
-                countdownValue--;
-                countdownElement.innerHTML = countdownValue;
-            }
-        }, 1000);
-    </script>";
-
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="tr">

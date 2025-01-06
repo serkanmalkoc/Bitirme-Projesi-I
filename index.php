@@ -356,49 +356,7 @@ form input {
 
 
 
-    <section>
-        <h2>En Yüksek Puanlı Filmler</h2>
-        <div class='film-list'>
-            <?php
-            // OMDB API anahtarını ekleyin
-            $omdb_key = '83f75584'; // Kendi anahtarınızı buraya koyun
-
-            // En yüksek puanlı filmleri göstermek için yeni bir bölüm
-            $sql_top = "SELECT * FROM filmler";
-            $result_top = $conn->query($sql_top);
-
-            if ($result_top && $result_top->num_rows > 0) {
-                $films_with_ratings = [];
-                while ($row = $result_top->fetch_assoc()) {
-                    $title = urlencode($row['baslik']);
-                    $omdb_url = "http://www.omdbapi.com/?t={$title}&apikey={$omdb_key}";
-                    $omdb_data = file_get_contents($omdb_url);
-                    $omdb_json = json_decode($omdb_data, true);
-                    
-                    if ($omdb_json && isset($omdb_json['imdbRating'])) {
-                        $row['imdbRating'] = $omdb_json['imdbRating'];
-                        $films_with_ratings[] = $row;
-                    }
-                }
-
-                // Puanlara göre sıralama
-                usort($films_with_ratings, function ($a, $b) {
-                    return $b['imdbRating'] <=> $a['imdbRating'];
-                });
-
-                // İlk 5 filmi göster
-                foreach (array_slice($films_with_ratings, 0, 5) as $film) {
-                    echo "<a href='view_movie.php?id=" . $film['id'] . "' class='film-item'>";
-                    echo "<img src='" . $film['afis'] . "' alt='" . $film['baslik'] . "'>";
-                    echo "<h3>" . $film['baslik'] . "</h3>";
-                    echo "<p>IMDB Puanı: " . $film['imdbRating'] . "</p>";
-                    echo "</a>";
-                }
-            } else {
-                echo "<p>Henüz yüksek puanlı film bulunmamaktadır.</p>";
-            }
-            ?>
-        </div>
+    
 
     
 

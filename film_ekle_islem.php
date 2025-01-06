@@ -2,11 +2,7 @@
 session_start();
 include 'db.php'; // Veritabanı bağlantısını ekleyin
 
-// Eğer kullanıcı giriş yapmamışsa, giriş sayfasına yönlendir
-if (!isset($_SESSION['user_id'])) {
-    header("Location: giris_yap.php");
-    exit();
-}
+
 
 // Kullanıcı ID'sini oturumdan alıyoruz
 $user_id = $_SESSION['user_id']; // Giriş yapan kullanıcının ID'si
